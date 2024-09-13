@@ -9,6 +9,9 @@ def main():
     spreadsheet_name = "Reborn Ranks - IM EB v3"
     parsed_data = get_spreadsheet_data(spreadsheet_name)
 
+    print(type(parsed_data))
+    print("-----------------")
+
     update_sheet_data(parsed_data, response)
 
 
