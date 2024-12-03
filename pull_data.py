@@ -8,20 +8,7 @@ def main():
 
     spreadsheet_name = "Reborn Ranks - IM EB v3"
     parsed_spreadsheet_data = get_spreadsheet_data(spreadsheet_name)
-
-    #for item in parsed_data[1:5]:
-    #    print(item)
-    print("-----------------")
-    #print(response)
-
-    parsed_spreadsheet_data2 = update_sheet_data(api_response, parsed_spreadsheet_data)
-
-    print("update sheet data done")
-    for item in parsed_spreadsheet_data2[1:15]:
-        print(item)
-
-    print("---_----_----")
-    print(api_response)
+    parsed_spreadsheet_data = update_sheet_data(api_response, parsed_spreadsheet_data)
 
 if __name__ == "__main__":
     main()
