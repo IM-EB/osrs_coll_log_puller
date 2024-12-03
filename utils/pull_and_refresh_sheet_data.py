@@ -41,8 +41,8 @@ def get_spreadsheet_data(spreadsheet_name: str) -> Dict[str, str]:
         collection_log_data = worksheet.get_all_values()[2:]
 
         # Parse the data into a more usable format
-        parsed_data = parse_data(collection_log_data)
-        return parsed_data
+        parsed_spreadsheet_data = parse_data(collection_log_data)
+        return parsed_spreadsheet_data
 
     except gspread.exceptions.SpreadsheetNotFound:
         print("Spreadsheet not found. Please check the name and permissions.")
@@ -63,10 +63,11 @@ def parse_data(data: List[List[str]]) -> List[CollectionLogEntry]:
         entries.append(entry)
     return entries
 
-def update_sheet_data(response: Dict[str, str], parsed_data: Dict[str, str]) -> Dict[str, str]:
-    updated_sheet_data = {}
-    # Perform the necessary updates to the sheet data using the response and parsed_data dictionaries
-    # ...
-    # Update the updated_sheet_data dictionary with the updated values
-    # ...
-    return updated_sheet_data
+def update_sheet_data(api_response: Dict[str, str], parsed_spreadsheet_data: List[CollectionLogEntry]) -> List[CollectionLogEntry]:
+    for entry in parsed_spreadsheet_data:
+        try:
+            if int(api_response[entry.item_name]) == 1:
+                entry.obtained = 1
+        except KeyError:
+            print(f"Item name '{entry.item_name}' not found in API response.")
+    return parsed_spreadsheet_data

@@ -4,17 +4,24 @@ from utils.pull_and_refresh_sheet_data import (get_spreadsheet_data,
 
 
 def main():
-    response = pull_from_api_by_rsn("IM EB")
+    api_response = pull_from_api_by_rsn("IM EB")
 
     spreadsheet_name = "Reborn Ranks - IM EB v3"
-    parsed_data = get_spreadsheet_data(spreadsheet_name)
+    parsed_spreadsheet_data = get_spreadsheet_data(spreadsheet_name)
 
-    print(type(parsed_data))
+    #for item in parsed_data[1:5]:
+    #    print(item)
     print("-----------------")
+    #print(response)
 
-    update_sheet_data(parsed_data, response)
+    parsed_spreadsheet_data2 = update_sheet_data(api_response, parsed_spreadsheet_data)
 
+    print("update sheet data done")
+    for item in parsed_spreadsheet_data2[1:15]:
+        print(item)
 
+    print("---_----_----")
+    print(api_response)
 
 if __name__ == "__main__":
     main()

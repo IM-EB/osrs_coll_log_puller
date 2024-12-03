@@ -10,11 +10,12 @@ def pull_from_api_by_rsn(rsn: str) -> dict:
     lookup_table = {}
 
     # Navigate through the nested structure to access all bosses and their items
-    bosses = response["collectionLog"]["tabs"]["Bosses"]
+    clog_data = response["collectionLog"]["tabs"]
 
-    for _boss_name, boss_data in bosses.items():
-        items = boss_data["items"]
-        for item in items:
-            lookup_table[item["name"].lower()] = int(item["obtained"])
+    for _category_name, category_data in clog_data.items():
+        for _boss_name, subcategory_data in category_data.items():
+            items = subcategory_data["items"]
+            for item in items:
+                lookup_table[item["name"].lower()] = int(item["obtained"])
 
     return lookup_table
